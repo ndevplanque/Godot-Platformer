@@ -2,7 +2,7 @@ using Godot;
 
 public partial class Level_2 : AbstractLevel
 {
-		public override void _Ready()
+	public override void _Ready()
 	{
 		Initialize(
 			playerPosition: new Vector2(100, 0),
@@ -13,7 +13,7 @@ public partial class Level_2 : AbstractLevel
 		base._Ready();
 
 		SetupHUD();
-		
+
 		// Sol de base
 		for (int i = 0; i < 20; i++)
 		{
@@ -26,5 +26,13 @@ public partial class Level_2 : AbstractLevel
 		var highPlat = new Platform();
 		highPlat.Position = new Vector2(250, 450);
 		AddChild(highPlat);
+
+		// PNJ
+		var npc = new NPC();
+		npc.Initialize(
+			name: "RectoVi",
+			spawnPosition: new Vector2(320, 600 - 32)
+		);
+		AddChild(npc);
 	}
 }
