@@ -11,7 +11,7 @@ public partial class Level_1 : AbstractLevel
 		);
 
 		base._Ready();
-		
+
 		SetupHUD();
 
 		// Sol de base
@@ -26,5 +26,13 @@ public partial class Level_1 : AbstractLevel
 		var highPlat = new Platform();
 		highPlat.Position = new Vector2(250, 450);
 		AddChild(highPlat);
+
+		// PNJ
+		var npc = new NPC();
+		npc.Initialize(
+			name: "RectoVi",
+			spawnPosition: new Vector2(320, 600 - 32)
+		);
+		AddChild(npc);
 	}
 }
