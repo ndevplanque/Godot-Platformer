@@ -12,8 +12,8 @@ public partial class Door : Area2D
 
 	public override void _Ready()
 	{
-		var shape = new RectangleShape2D { Size = size };
-		var collider = new CollisionShape2D { Shape = shape };
+		shape = new RectangleShape2D { Size = size };
+		collider = new CollisionShape2D { Shape = shape };
 		sprite = new ColorRect
 		{
 			Color = Colors.Black,

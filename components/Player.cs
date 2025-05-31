@@ -2,39 +2,52 @@ using Godot;
 
 public partial class Player : CharacterBody2D
 {
+	// Physique
 	const float Speed = 200f;
 	const float JumpForce = -400f;
 	const float Gravity = 900f;
 	const float DeathY = 800f;
 	
+	// Visuel
 	public readonly Vector2 size = new Vector2(32, 64);
-
-	private Vector2 spawnPosition = new Vector2(100, 200); // Position de spawn fixe (x = 100, y = 200 par exemple)
-	private int jumpsLeft = 2; // max 2 sauts
+	protected RectangleShape2D shape;
+	protected CollisionShape2D collider;
+	protected ColorRect sprite;
+	
+	// Position de spawn fixe
+	public Vector2 SpawnPosition { get; private set; }
+	
+	// Max 2 sauts
+	private int jumpsLeft = 2; 
 	private bool jumpButtonPressed = false;
 
+ 	public void Initialize(Vector2 spawnPosition)
+	{
+		SpawnPosition = spawnPosition;
+		Position = SpawnPosition;
+	}
+	
 	public void Respawn()
 	{
-		Position = spawnPosition;
+		GD.Print("Player mort. Respawn.");
+		Position = SpawnPosition;
 		Velocity = Vector2.Zero;
 	}
 
 	public override void _Ready()
 	{
-		Position = spawnPosition;
+		Position = SpawnPosition;
 
-		// Collider
-		var shape = new RectangleShape2D { Size = size };
-		var collider = new CollisionShape2D { Shape = shape };
-		AddChild(collider);
-
-		// Visuel
-		var sprite = new ColorRect
+		shape = new RectangleShape2D { Size = size };
+		collider = new CollisionShape2D { Shape = shape };
+		sprite = new ColorRect
 		{
 			Color = new Color(0f, 0.4f, 1f),
 			Size = size,
 			Position = -size / 2
 		};
+		
+		AddChild(collider);
 		AddChild(sprite);
 	}
 
@@ -51,16 +64,18 @@ public partial class Player : CharacterBody2D
 		Velocity = new Vector2(input.X * Speed, Velocity.Y);
 		
 		// Empêcher d'aller à gauche au-delà de x = 0
-		if (Position.X < size.X/2 && Velocity.X < 0)
+		if (Position.X < size.X / 2 && Velocity.X < 0)
 		{
-			Velocity = new Vector2(0, Velocity.Y); // Optionnel : couper la vitesse horizontale à gauche
+			Velocity = new Vector2(0, Velocity.Y);
 		}
 
 		// Réinitialiser le compteur de saut si au sol
 		if (IsOnFloor())
+		{
 			jumpsLeft = 2;
+		}
 
-		// Saut
+		// Verouiller l'écoute du bouton de saut tant qu'il n'est pas lâché
 		if (!Input.IsJoyButtonPressed(0, JoyButton.A))
 		{
 			jumpButtonPressed = false;
@@ -74,14 +89,14 @@ public partial class Player : CharacterBody2D
 
 		// Gravité
 		Velocity += new Vector2(0, Gravity * (float)delta);
+		
+		// Appliquer
 		MoveAndSlide();
 
-		// Respawn si tombe
+		// Respawn si tombé
 		if (Position.Y > DeathY)
 		{
-			GD.Print("Player mort. Respawn.");
-			Position = spawnPosition;
-			Velocity = Vector2.Zero;
+			Respawn();
 		}
 	}
 }
