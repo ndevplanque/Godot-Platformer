@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://btsuv6hkjp7ps"]
+
+[ext_resource type="Script" uid="uid://dw1cp1x6u8qd0" path="res://levels/Level_2.cs" id="1_sc0wp"]
+
+[node name="Level_2" type="Node2D"]
+script = ExtResource("1_sc0wp")
