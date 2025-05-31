@@ -7,7 +7,6 @@ public partial class Data : Node
 
 	public static void Save(string key, string value)
 	{
-
 		var file = FileAccess.Open(SaveGame, FileAccess.ModeFlags.Write);
 		if (FileAccess.GetOpenError() != Error.Ok)
 		{
@@ -15,7 +14,16 @@ public partial class Data : Node
 			return;
 		}
 
-		var success = file.StoreLine($"{key}={value}");
+        // Search for existing value
+        var existingValue = Load(key);
+        if (!string.IsNullOrEmpty(existingValue))
+        {
+            // If the key already exists, delete the old line
+            Delete(key);
+        }
+
+		// Add a new line
+        var success = file.StoreLine($"{key}={value}");
 		if (success)
 		{
 			GD.Print("Data saved successfully.");
@@ -37,13 +45,15 @@ public partial class Data : Node
 			return string.Empty;
 		}
 
+		// Find the value related to the given key
+		var match = key + "=";
 		string value = string.Empty;
 		while (!file.EofReached())
 		{
 			var line = file.GetLine();
-			if (line.StartsWith(key + "="))
+			if (line.StartsWith(match))
 			{
-				value = line.Substring(key.Length + 1);
+				value = line.Substring(match.Length);
 				break;
 			}
 		}
@@ -61,6 +71,7 @@ public partial class Data : Node
 			return;
 		}
 
+		// Gather all data that are not from the given key
 		var match = key + "=";
 		var lines = new System.Collections.Generic.List<string>();
 		while (!file.EofReached())
@@ -72,7 +83,8 @@ public partial class Data : Node
 			}
 		}
 
-		var error = file.Resize(0); // Clear the file before writing
+		// Clear the file
+		var error = file.Resize(0); 
 		if (error != Error.Ok)
 		{
 			GD.PrintErr("Failed to resize data file.");
@@ -80,13 +92,14 @@ public partial class Data : Node
 			return;
 		}
 
-		// Write back the remaining lines
+		// Write back the gathered lines
 		foreach (var line in lines)
 		{
 			file.StoreLine(line);
 		}
-		file.Close();
 		GD.Print("Data deleted successfully.");
+		
+		file.Close();
 	}
 
 	public static void Clear()
@@ -98,7 +111,8 @@ public partial class Data : Node
 			return;
 		}
 
-		var error = file.Resize(0); // Clear the file
+		// Clear the file
+		var error = file.Resize(0); 
 		if (error == Error.Ok)
 		{
 			GD.Print("Data cleared successfully.");
