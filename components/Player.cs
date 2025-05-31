@@ -23,9 +23,14 @@ public partial class Player : CharacterBody2D
 	private int jumpsLeft = 2; 
 	private bool jumpButtonPressed = false;
 
- 	public void Initialize(Vector2 spawnPosition)
+ 	// Nombre de vies du joueur
+	public int Lives { get; private set; }
+
+
+	public void Initialize(Vector2 spawnPosition)
 	{
 		SpawnPosition = spawnPosition;
+		Lives = Data.Load("lives") != string.Empty ? int.Parse(Data.Load("lives")) : 3;
 	}
 	
 	private void Spawn()
@@ -37,7 +42,17 @@ public partial class Player : CharacterBody2D
 	
 	public void Respawn()
 	{
-		GD.Print("Player mort. Respawn.");
+		Lives--;
+		Data.Save("lives", Lives.ToString());
+		GD.Print("Life lost, remaining: " + Lives);
+		if (Lives <= 0)
+		{
+			Data.Delete("lives");
+			GD.Print("Game Over");
+			GetTree().ChangeSceneToFile("res://Main.tscn");
+			return;
+		}
+		GD.Print("Respawning...");
 		Spawn();
 	}
 
