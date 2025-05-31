@@ -20,5 +20,7 @@ public partial class Platform : StaticBody2D
 
 		AddChild(collider);
 		AddChild(sprite);
+
+		SetCollisionLayerValue(1, true); // Sol sur layer 1
 	}
 }

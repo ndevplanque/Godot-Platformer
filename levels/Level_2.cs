@@ -2,7 +2,7 @@ using Godot;
 
 public partial class Level_2 : AbstractLevel
 {
-		public override void _Ready()
+	public override void _Ready()
 	{
 		Initialize(
 			playerPosition: new Vector2(100, 0),
@@ -13,7 +13,7 @@ public partial class Level_2 : AbstractLevel
 		base._Ready();
 
 		SetupHUD();
-		
+
 		// Sol de base
 		for (int i = 0; i < 20; i++)
 		{

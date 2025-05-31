@@ -9,21 +9,21 @@ public partial class Player : CharacterBody2D
 	const float DefaultGravity = 900f;
 	const float SpawnGravity = 4000f;
 	float Gravity = DefaultGravity;
-	
+
 	// Visuel
 	public readonly Vector2 size = new Vector2(32, 64);
 	protected RectangleShape2D shape;
 	protected CollisionShape2D collider;
 	protected ColorRect sprite;
-	
+
 	// Position de spawn fixe
 	public Vector2 SpawnPosition { get; private set; }
-	
+
 	// Max 2 sauts
-	private int jumpsLeft = 2; 
+	private int jumpsLeft = 2;
 	private bool jumpButtonPressed = false;
 
- 	// Nombre de vies du joueur
+	// Nombre de vies du joueur
 	public int Lives { get; private set; }
 
 
@@ -32,14 +32,14 @@ public partial class Player : CharacterBody2D
 		SpawnPosition = spawnPosition;
 		Lives = Data.Load("lives") != string.Empty ? int.Parse(Data.Load("lives")) : 3;
 	}
-	
+
 	private void Spawn()
 	{
 		Position = SpawnPosition;
 		Gravity = SpawnGravity;
 		Velocity = Vector2.Zero;
 	}
-	
+
 	public void Respawn()
 	{
 		Lives--;
@@ -66,10 +66,15 @@ public partial class Player : CharacterBody2D
 			Size = size,
 			Position = -size / 2
 		};
-		
+
 		AddChild(collider);
 		AddChild(sprite);
-		
+
+		SetCollisionLayerValue(2, true); // Player est sur layer 2
+		SetCollisionMaskValue(1, true);  // Collisionne uniquement avec le sol et les plateformes
+		SetCollisionMaskValue(2, false); // Ignore les autres joueurs
+		SetCollisionMaskValue(3, false); // Ignore les NPCs
+
 		Spawn();
 	}
 
@@ -84,7 +89,7 @@ public partial class Player : CharacterBody2D
 		}
 
 		Velocity = new Vector2(input.X * Speed, Velocity.Y);
-		
+
 		// Empêcher d'aller à gauche au-delà de x = 0
 		if (Position.X < size.X / 2 && Velocity.X < 0)
 		{
@@ -112,7 +117,7 @@ public partial class Player : CharacterBody2D
 
 		// Gravité
 		Velocity += new Vector2(0, Gravity * (float)delta);
-		
+
 		// Appliquer
 		MoveAndSlide();
 
