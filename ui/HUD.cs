@@ -13,8 +13,7 @@ public partial class HUD : CanvasLayer
 	{
 		if (Player1 != null)
 		{
-			// Exemple : update un label avec la vie
-			// GetNode<Label>("LifeLabel").Text = player.Life.ToString();
+			GetNode<Label>("LivesLabel").Text = Player1.Lives.ToString();
 		}
 	}
 }

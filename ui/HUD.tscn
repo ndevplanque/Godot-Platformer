@@ -5,7 +5,8 @@
 [node name="Hud" type="CanvasLayer"]
 script = ExtResource("1_1x8ju")
 
-[node name="Label" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Vie"
+[node name="LivesLabel" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 60.0
+offset_bottom = 43.0
