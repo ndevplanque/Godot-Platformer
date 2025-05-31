@@ -5,8 +5,10 @@ public partial class Player : CharacterBody2D
 	// Physique
 	const float Speed = 200f;
 	const float JumpForce = -400f;
-	const float Gravity = 900f;
 	const float DeathY = 800f;
+	const float DefaultGravity = 900f;
+	const float SpawnGravity = 4000f;
+	float Gravity = DefaultGravity;
 	
 	// Visuel
 	public readonly Vector2 size = new Vector2(32, 64);
@@ -24,20 +26,23 @@ public partial class Player : CharacterBody2D
  	public void Initialize(Vector2 spawnPosition)
 	{
 		SpawnPosition = spawnPosition;
+	}
+	
+	private void Spawn()
+	{
 		Position = SpawnPosition;
+		Gravity = SpawnGravity;
+		Velocity = Vector2.Zero;
 	}
 	
 	public void Respawn()
 	{
 		GD.Print("Player mort. Respawn.");
-		Position = SpawnPosition;
-		Velocity = Vector2.Zero;
+		Spawn();
 	}
 
 	public override void _Ready()
 	{
-		Position = SpawnPosition;
-
 		shape = new RectangleShape2D { Size = size };
 		collider = new CollisionShape2D { Shape = shape };
 		sprite = new ColorRect
@@ -49,6 +54,8 @@ public partial class Player : CharacterBody2D
 		
 		AddChild(collider);
 		AddChild(sprite);
+		
+		Spawn();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -73,6 +80,7 @@ public partial class Player : CharacterBody2D
 		if (IsOnFloor())
 		{
 			jumpsLeft = 2;
+			Gravity = DefaultGravity;
 		}
 
 		// Verouiller l'écoute du bouton de saut tant qu'il n'est pas lâché
