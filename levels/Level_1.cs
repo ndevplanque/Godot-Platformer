@@ -31,7 +31,8 @@ public partial class Level_1 : AbstractLevel
 		var npc = new NPC();
 		npc.Initialize(
 			name: "RectoVi",
-			spawnPosition: new Vector2(320, 600 - 32)
+			spawnPosition: new Vector2(320, 600 - 32),
+			dialogBox: DialogBox // from AbstractLevel
 		);
 		AddChild(npc);
 	}
