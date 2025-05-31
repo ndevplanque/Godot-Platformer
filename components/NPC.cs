@@ -24,11 +24,14 @@ public partial class NPC : CharacterBody2D
 	private Area2D interactionArea;
 	private CollisionShape2D interactionShape;
 	private bool playerInRange = false;
+	
+	private DialogBox DialogBox;
 
-	public void Initialize(string name, Vector2 spawnPosition)
+	public void Initialize(string name, Vector2 spawnPosition, DialogBox dialogBox)
 	{
 		CharacterName = name;
 		SpawnPosition = spawnPosition;
+		DialogBox = dialogBox;
 	}
 
 	private void Spawn()
@@ -130,7 +133,7 @@ public partial class NPC : CharacterBody2D
 		if (playerInRange && Input.IsJoyButtonPressed(0, JoyButton.X))
 		{
 			GD.Print($"Dialogue avec {CharacterName} !");
-			// Tu peux appeler ici ton système de dialogue
+			DialogBox.ShowDialog("Bonjour, héros ! Bienvenue dans ce monde mystérieux.");
 		}
 
 		// Gravité

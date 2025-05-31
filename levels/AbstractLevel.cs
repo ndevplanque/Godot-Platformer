@@ -10,6 +10,7 @@ public abstract partial class AbstractLevel : Node2D
 	protected Player Player1;
 	protected Door Exit;
 	protected Node HUD;
+	protected DialogBox DialogBox;
 
 	protected void Initialize(
 		Vector2 playerPosition,
@@ -24,6 +25,9 @@ public abstract partial class AbstractLevel : Node2D
 	
 	public override void _Ready()
 	{
+		DialogBox = GD.Load<PackedScene>("res://ui/DialogBox.tscn").Instantiate() as DialogBox;
+		AddChild(DialogBox);
+		
 		// Créer et ajouter le joueur
 		Player1 = new Player();
 		Player1.Initialize(PlayerPosition);
