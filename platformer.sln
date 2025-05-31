@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "platformer", "platformer.csproj", "{D276EF72-15A6-49CD-8498-FCABB22BBA1D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "platformer", "platformer.csproj", "{69D5219F-B77E-4B10-8AAF-0918C7F94F89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,11 +9,11 @@ Global
 	ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D276EF72-15A6-49CD-8498-FCABB22BBA1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D276EF72-15A6-49CD-8498-FCABB22BBA1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D276EF72-15A6-49CD-8498-FCABB22BBA1D}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
-		{D276EF72-15A6-49CD-8498-FCABB22BBA1D}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
-		{D276EF72-15A6-49CD-8498-FCABB22BBA1D}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
-		{D276EF72-15A6-49CD-8498-FCABB22BBA1D}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{69D5219F-B77E-4B10-8AAF-0918C7F94F89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69D5219F-B77E-4B10-8AAF-0918C7F94F89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69D5219F-B77E-4B10-8AAF-0918C7F94F89}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{69D5219F-B77E-4B10-8AAF-0918C7F94F89}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{69D5219F-B77E-4B10-8AAF-0918C7F94F89}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{69D5219F-B77E-4B10-8AAF-0918C7F94F89}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 	EndGlobalSection
 EndGlobal
